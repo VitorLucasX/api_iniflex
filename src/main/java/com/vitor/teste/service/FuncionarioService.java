@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.*;
 
 @Service
@@ -64,12 +65,22 @@ public class FuncionarioService {
         return agrupadosPorFuncao;
     }
 
-    public List<Funcionario> buscarAniversariantesNosMeses(List<Integer> meses) {
+    public List<Funcionario> buscarAniversariantesNosMeses() {
+        List<Integer> meses = Arrays.asList(10, 12); // Outubro e Dezembro
         return funcionarioRepository.findByDataNascimentoMonthIn(meses);
     }
 
-    public Optional<Funcionario> buscarFuncionarioMaisVelho() {
-        return listarTodosFuncionarios().stream().min(Comparator.comparing(Funcionario::getDataNascimento));
+
+    public Optional<Map<String, Object>> buscarFuncionarioMaisVelho() {
+        return listarTodosFuncionarios().stream()
+                .min(Comparator.comparing(Funcionario::getDataNascimento))
+                .map(funcionario -> {
+                    Map<String, Object> result = new HashMap<>();
+                    Period period = Period.between(funcionario.getDataNascimento(), LocalDate.now());
+                    result.put("nome", funcionario.getNome());
+                    result.put("idade", period.getYears());
+                    return result;
+                });
     }
 
     public List<Funcionario> listarFuncionariosEmOrdemAlfabetica() {
@@ -82,7 +93,8 @@ public class FuncionarioService {
         return listarTodosFuncionarios().stream().map(Funcionario::getSalario).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    public List<String> calcularQuantosSalariosMinimosCadaFuncionarioGanha(BigDecimal salarioMinimo) {
+    public List<String> calcularQuantosSalariosMinimosCadaFuncionarioGanha() {
+        BigDecimal salarioMinimo = new BigDecimal("1212.00");  // Valor fixo do salário mínimo
         List<String> relatorio = new ArrayList<>();
         for (Funcionario funcionario : listarTodosFuncionarios()) {
             BigDecimal quantosSalarios = funcionario.getSalario().divide(salarioMinimo, 1, BigDecimal.ROUND_HALF_UP);
@@ -90,4 +102,5 @@ public class FuncionarioService {
         }
         return relatorio;
     }
+
 }

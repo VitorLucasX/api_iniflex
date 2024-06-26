@@ -49,14 +49,14 @@ public class FuncionarioController {
     }
 
     @GetMapping("/aniversariantes")
-    public ResponseEntity<List<Funcionario>> buscarAniversariantesNosMeses(@RequestParam List<Integer> meses) {
-        List<Funcionario> aniversariantes = funcionarioService.buscarAniversariantesNosMeses(meses);
+    public ResponseEntity<List<Funcionario>> buscarAniversariantesNosMeses() {
+        List<Funcionario> aniversariantes = funcionarioService.buscarAniversariantesNosMeses();
         return ResponseEntity.ok(aniversariantes);
     }
 
     @GetMapping("/mais-velho")
-    public ResponseEntity<Funcionario> buscarFuncionarioMaisVelho() {
-        Optional<Funcionario> maisVelho = funcionarioService.buscarFuncionarioMaisVelho();
+    public ResponseEntity<Map<String, Object>> buscarFuncionarioMaisVelho() {
+        Optional<Map<String, Object>> maisVelho = funcionarioService.buscarFuncionarioMaisVelho();
         return maisVelho.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
@@ -73,8 +73,9 @@ public class FuncionarioController {
     }
 
     @GetMapping("/salarios-minimos")
-    public ResponseEntity<List<String>> calcularQuantosSalariosMinimosCadaFuncionarioGanha(@RequestParam BigDecimal salarioMinimo) {
-        List<String> relatorio = funcionarioService.calcularQuantosSalariosMinimosCadaFuncionarioGanha(salarioMinimo);
+    public ResponseEntity<List<String>> calcularQuantosSalariosMinimosCadaFuncionarioGanha() {
+        List<String> relatorio = funcionarioService.calcularQuantosSalariosMinimosCadaFuncionarioGanha();
         return ResponseEntity.ok(relatorio);
     }
+
 }

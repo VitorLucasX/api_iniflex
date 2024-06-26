@@ -19,7 +19,7 @@
   <li>Método para listar quantos salários mínimos ganha cada funcionário, considerando que o salário mínimo é R$1212.00</li>
 </ul>
 
-<h2>Abaixo contém algumas imagens das requisições da API funcionando perfeitamente no Postman e da tabela no MySQL</h2>
+<h2>Abaixo contém algumas imagens das requisições da API funcionando perfeitamente no Postman</h2>
 <p>Requisições do Postman:</p>
 
 ![Captura de tela 2024-06-25 210520](https://github.com/VitorLucasX/api_iniflex/assets/126624364/6ef95460-71c4-40ed-b392-4e2b35cbfd98)

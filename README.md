@@ -1,4 +1,4 @@
-<h1>API Rest padrão MVC desenvolvida com Springboot e SQL</h1>
+<h1>API Rest padrão MVC desenvolvida com Springboot e mySQL</h1>
 <h2>Contém todos os métodos de requisições Get, Post, Update e Delete</h2>
 
 <ul>
